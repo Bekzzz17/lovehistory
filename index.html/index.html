@@ -1,0 +1,746 @@
+﻿<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Біздің махаббатымыз</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f0f14;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      background: url("https://i.pinimg.com/originals/62/c7/62/62c762cee1e440a1c7a901a36426fbc9.png") center/cover no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(2px);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      width: 100%;
+      animation: fadeUp 1.2s ease;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.9;
+      margin-bottom: 14px;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      line-height: 1.15;
+      margin-bottom: 18px;
+      text-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-text {
+      max-width: 700px;
+      margin: 0 auto 28px;
+      line-height: 1.7;
+      font-size: 1.08rem;
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .timer-box {
+      display: inline-block;
+      padding: 20px 24px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.24);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      min-width: 300px;
+    }
+
+    .timer-label {
+      font-size: 1rem;
+      opacity: 0.95;
+      margin-bottom: 12px;
+    }
+
+    .timer {
+      font-size: 1.7rem;
+      font-weight: bold;
+      line-height: 1.6;
+    }
+
+    .scroll-down {
+      margin-top: 26px;
+      font-size: 0.98rem;
+      opacity: 0.9;
+      animation: bounce 1.8s infinite;
+    }
+
+    .section {
+      padding: 80px 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2.3rem;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 42px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.82);
+    }
+
+    .message-card {
+      position: relative;
+      background: linear-gradient(135deg, rgba(255,105,180,0.16), rgba(255,255,255,0.06));
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 28px;
+      padding: 34px 26px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+      overflow: hidden;
+    }
+
+    .message-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .message-title {
+      font-size: 2rem;
+    }
+
+    .heart-btn {
+      border: none;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      font-size: 2rem;
+      cursor: pointer;
+      background: rgba(255,255,255,0.12);
+      color: #ff5c8a;
+      transition: transform 0.2s ease, background 0.2s ease;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.2);
+    }
+
+    .heart-btn:hover {
+      transform: scale(1.08);
+      background: rgba(255,255,255,0.2);
+    }
+
+    .message-text {
+      line-height: 1.95;
+      font-size: 1.08rem;
+      color: rgba(255,255,255,0.96);
+      white-space: pre-line;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 28px;
+      margin-top: 20px;
+    }
+
+    .memory-card {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 26px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.16);
+    }
+
+    .memory-media {
+      background: #000;
+      min-height: 280px;
+      height: 100%;
+    }
+
+    .memory-media img,
+    .memory-media video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .memory-content {
+      padding: 26px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .memory-date {
+      color: #ff9ab5;
+      font-weight: bold;
+      margin-bottom: 12px;
+      font-size: 1.02rem;
+    }
+
+    .memory-title {
+      font-size: 1.7rem;
+      margin-bottom: 12px;
+    }
+
+    .memory-text {
+      line-height: 1.85;
+      color: rgba(255,255,255,0.9);
+      font-size: 1.03rem;
+      white-space: pre-line;
+    }
+
+    .footer {
+      padding: 32px 20px 50px;
+      text-align: center;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.98rem;
+    }
+
+    .floating-heart {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      animation: flyHeart 1.6s ease-out forwards;
+      will-change: transform, opacity;
+    }
+
+    .music-fab {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: none;
+      border-radius: 999px;
+      padding: 16px 22px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff5c8a, #ff8fb1);
+      box-shadow: 0 12px 30px rgba(255, 92, 138, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      animation: musicPulse 1.8s infinite;
+    }
+
+    .music-fab:hover {
+      transform: scale(1.05);
+      box-shadow: 0 16px 34px rgba(255, 92, 138, 0.45);
+    }
+
+    .music-fab.playing {
+      background: linear-gradient(135deg, #7c4dff, #a855f7);
+      box-shadow: 0 12px 30px rgba(124, 77, 255, 0.35);
+      animation: none;
+    }
+
+    .music-icon {
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .music-tip {
+      position: fixed;
+      right: 24px;
+      bottom: 88px;
+      z-index: 9999;
+      background: rgba(15, 15, 20, 0.88);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 13px;
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+      animation: fadeTip 5s ease forwards;
+    }
+
+    @keyframes flyHeart {
+      0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(var(--moveX), var(--moveY)) scale(1.7);
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(8px);
+      }
+    }
+
+    @keyframes musicPulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.06);
+      }
+    }
+
+    @keyframes fadeTip {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      15%, 75% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero-title {
+        font-size: 2.35rem;
+      }
+
+      .timer {
+        font-size: 1.35rem;
+      }
+
+      .memory-card {
+        grid-template-columns: 1fr;
+      }
+
+      .memory-media {
+        min-height: 220px;
+      }
+
+      .message-title {
+        font-size: 1.6rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .hero-title {
+        font-size: 1.9rem;
+      }
+
+      .hero-text {
+        font-size: 1rem;
+      }
+
+      .timer-box {
+        min-width: auto;
+        width: 100%;
+      }
+
+      .timer {
+        font-size: 1.15rem;
+      }
+
+      .message-card,
+      .memory-content {
+        padding: 22px 18px;
+      }
+
+      .memory-title {
+        font-size: 1.35rem;
+      }
+
+      .music-fab {
+        right: 14px;
+        bottom: 14px;
+        padding: 14px 18px;
+        font-size: 14px;
+      }
+
+      .music-tip {
+        right: 14px;
+        bottom: 74px;
+        font-size: 12px;
+        max-width: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="music-tip" id="musicTip">🎵 Батырманы бассаң, біздің әніміз ойнайды</div>
+
+  <button class="music-fab" id="musicToggleBtn" type="button">
+    <span class="music-icon">🎵</span>
+    <span id="musicBtnText">Әнімізді қосу</span>
+  </button>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-subtitle">Біздің ерекше тарихымыз</div>
+      <h1 class="hero-title">2024 жылдың 25 шілдесінен бері бірге келеміз ❤️</h1>
+      <p class="hero-text">
+        Бұл сайт — біздің ең әдемі естеліктеріміз, сезімдеріміз және бірге өткізген қымбат сәттеріміз үшін.
+      </p>
+
+      <div class="timer-box">
+        <div class="timer-label">Біз бірге болғанымызға:</div>
+        <div class="timer" id="loveTimer">Жүктелуде...</div>
+      </div>
+
+      <div class="scroll-down">Төмен түс ↓</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Саған, жаным 💌</h2>
+      <p class="section-subtitle">
+        Жаным сен өте керемет адамсың мен сені қатты жақсы көремін Зурееееек!!!
+      </p>
+
+      <div class="message-card">
+        <div class="message-head">
+          <div class="message-title">Менің саған айтарым ❤️</div>
+          <button class="heart-btn" id="heartBtn" aria-label="Жүрек">❤</button>
+        </div>
+
+        <div class="message-text">
+Сен менің өмірімдегі ең қымбат жансың.
+Сенмен өткен әр күнім мен үшін ерекше.
+Сенің күлкің, сөзің, жанымда болуың — бәрі мен үшін өте қымбат.
+
+Осы сайтты мен саған деген шынайы сезімім үшін жасадым.
+Біз бірге өткізген әрбір сәт жүрегімде сақталып қалады.
+Мен сені жақсы көремін. ❤️
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Кездескен күндеріміз 📸🎥</h2>
+      <p class="section-subtitle">
+        Мінекей жаным біздің кішігірім тарихымыз
+      </p>
+
+      <div class="timeline">
+        <div class="memory-card">
+          <div class="memory-media">
+            <img src="https://i.ibb.co/Y42nX0cM/Whats-App-Image-2026-03-17-at-02-45-30.jpg" alt="Бірінші кездесу">
+          </div>
+          <div class="memory-content">
+            <div class="memory-date">25.07.2024</div>
+            <div class="memory-title">Біздің басталуымыз</div>
+            <div class="memory-text">
+Бұл күн біздің тарихымыздың басталған күні.
+Мен үшін бұл күн ешқашан ұмытылмайтын ерекше күн.
+            </div>
+          </div>
+        </div>
+
+        <div class="memory-card">
+          <div class="memory-media">
+            <img src="https://i.ibb.co/Fk56Jtv2/Whats-App-Image-2026-03-17-at-00-57-54.jpg" alt="Алғашқы қала кездесуі">
+          </div>
+          <div class="memory-content">
+            <div class="memory-date">02.11.2024</div>
+            <div class="memory-title">Екеуіміздің қалада алғаш кездескеніміз</div>
+            <div class="memory-text">
+Бұл күні біз бірге тамаша уақыт өткіздік.
+Сол күнгі сезімдер әлі күнге дейін жүрегімде.
+            </div>
+          </div>
+        </div>
+
+        <div class="memory-card">
+          <div class="memory-media">
+            <img src="https://i.ibb.co/99fthVZV/Whats-App-Image-2026-03-17-at-02-56-03.jpg" alt="Екінші естелік">
+          </div>
+          <div class="memory-content">
+            <div class="memory-date">12.07.2025</div>
+            <div class="memory-title">Сезімнің қайта жануы</div>
+            <div class="memory-text">
+Кейбір сәттер сурет болып қана қалмайды,
+олар жүректе мәңгі сақталады.
+Ұзақтау үзілістен кейін бір-бірімізге керек екенімізді біліп бір-бірімізді қайта таңдаған сәтіміз.
+            </div>
+          </div>
+        </div>
+
+        <div class="memory-card">
+          <div class="memory-media">
+            <img src="https://i.ibb.co/7tqY4wHK/Whats-App-Image-2026-03-17-at-03-09-22.jpg" alt="Жеке кездесу">
+          </div>
+          <div class="memory-content">
+            <div class="memory-date">02.11.2024</div>
+            <div class="memory-title">Екеуіміздің алғаш рет жеке кездескен кезіміз</div>
+            <div class="memory-text">
+Сол күні өзіңе қайта ғашық болдым,
+Сұлулығың өте керкем болды.
+            </div>
+          </div>
+        </div>
+
+        <div class="memory-card">
+          <div class="memory-media">
+            <img src="https://i.ibb.co/zVD5D9BH/Whats-App-Image-2026-03-17-at-03-17-13.jpg" alt="Тағы бір естелік">
+          </div>
+          <div class="memory-content">
+            <div class="memory-date">28.09.2025</div>
+            <div class="memory-title">Түркістанға енді енді келіп жүрген кездерім</div>
+            <div class="memory-text">
+Сенмен бірге өткен әр сәт мен үшін өте қымбат.
+сол кездерде
+Осындай күндер көп болса екен деп тілейтінмін.
+            </div>
+          </div>
+        </div>
+
+        <div class="memory-card">
+          <div class="memory-media">
+            <img src="https://i.ibb.co/9Hfp3dB1/Whats-App-Image-2026-03-17-at-01-18-00.jpg" alt="Тағы бір естелік">
+          </div>
+          <div class="memory-content">
+            <div class="memory-date">30.11.2025</div>
+            <div class="memory-title">Өте нәзік қолдарың</div>
+            <div class="memory-text">
+Сенің қасыңда өзімді әрдайым бақытты сезінемін.
+Ішімде тыныштық орнап, бауыр басып сағынышымды басудың қандай сезім екенін сезінемін.
+            </div>
+          </div>
+        </div>
+
+        <div class="memory-card">
+          <div class="memory-media">
+            <img src="https://i.ibb.co/21FBn9Bt/Whats-App-Image-2026-03-17-at-01-19-41.jpg" alt="Тағы бір естелік">
+          </div>
+          <div class="memory-content">
+            <div class="memory-date">20.12.2025</div>
+            <div class="memory-title">Өмірімде алғаш рет өзім ұнататын адамнан қымбат сыйлық алған күн</div>
+            <div class="memory-text">
+Біз осы кезде бір бірімізге серт беріп қандай қиындық шықсада бірге жеңеміз деп уәде бергенбіз.
+Шүкір қазір қиындықтардан бірге өтіп келе жатырмыз...
+            </div>
+          </div>
+        </div>
+
+        <div class="memory-card">
+          <div class="memory-media">
+            <img src="https://i.ibb.co/jq8QN4C/Whats-App-Image-2026-03-17-at-01-21-00.jpg" alt="Тағы бір естелік">
+          </div>
+          <div class="memory-content">
+            <div class="memory-date">20.12.2025</div>
+            <div class="memory-title">Біздің алғашқы бірге жасаған жұмысымыз</div>
+            <div class="memory-text">
+Эмоцияға толы, екеуімізге де ыстық картинка
+            </div>
+          </div>
+        </div>
+
+        <div class="memory-card">
+          <div class="memory-media">
+            <img src="https://i.ibb.co/Qj7g1Dpk/Whats-App-Image-2026-03-17-at-01-23-03.jpg" alt="Тағы бір естелік">
+          </div>
+          <div class="memory-content">
+            <div class="memory-date">08.01.2026</div>
+            <div class="memory-title">Кезекті бақытты кездесуіміз</div>
+            <div class="memory-text">
+Өте сұлусың.
+Кездесуді асыға күтіп қайтарда қимай қоштасамызғой.
+            </div>
+          </div>
+        </div>
+
+        <div class="memory-card">
+          <div class="memory-media">
+            <img src="https://i.ibb.co/mr6xrT1N/Whats-App-Image-2026-03-17-at-03-47-40.jpg" alt="Тағы бір естелік">
+          </div>
+          <div class="memory-content">
+            <div class="memory-date">25.01.2026</div>
+            <div class="memory-title">Ыстық естеліктер</div>
+            <div class="memory-text">
+Суық күнге қарамастан екеуімізде балаша мәз болып махаббаттан басым айналып, қанша жаурасақта бір бірімізге деген махаббаттың күшімен жылынатын едік.
+            </div>
+          </div>
+        </div>
+
+        <div class="memory-card">
+          <div class="memory-media">
+            <img src="https://i.ibb.co/RptcP2sZ/Whats-App-Image-2026-03-17-at-01-25-53.jpg" alt="Тағы бір естелік">
+          </div>
+          <div class="memory-content">
+            <div class="memory-date">14.02.2026</div>
+            <div class="memory-title">Түсініспеншілігің</div>
+            <div class="memory-text">
+Суық күнде далда отырып тамақ жегеніміз.
+Осы кезде іштей қатты қынжылып едім, неге суық жерде осындай тамақ жеп отырмыз қымбат жерге апара алмадым ау, жауратып алдым ау деп өзімді іштей жеген едім.
+            </div>
+          </div>
+        </div>
+
+        <div class="memory-card">
+          <div class="memory-media">
+            <img src="https://i.ibb.co/9H8sXn2c/Whats-App-Image-2026-03-17-at-01-26-52.jpg" alt="Тағы бір естелік">
+          </div>
+          <div class="memory-content">
+            <div class="memory-date">14.03.2026</div>
+            <div class="memory-title">Асыға күткен кездесуіміз</div>
+            <div class="memory-text">
+Былай қарасақ арада 1 ақ ай өтті, осы уақыт ішінде ақ бір бірімізге деген сағынышты байқадық.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+   Жаным сол, сенімен өткізген осы уақытымда мен біраз нарсені түйдім біраз нәрсені түсіндім. Мен саған ессіз ғашықпын ❤️
+  </footer>
+
+  <audio id="bgMusic" loop>
+    <source src="musiclove7.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const startDate = new Date("2024-07-25T00:00:00");
+
+    function updateLoveTimer() {
+      const now = new Date();
+      const diff = now - startDate;
+
+      if (diff < 0) {
+        document.getElementById("loveTimer").innerHTML = "Дата қате қойылған";
+        return;
+      }
+
+      const totalSeconds = Math.floor(diff / 1000);
+
+      const days = Math.floor(totalSeconds / (60 * 60 * 24));
+      const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
+      const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+      const seconds = totalSeconds % 60;
+
+      document.getElementById("loveTimer").innerHTML =
+        `${days} күн<br>${hours} сағат ${minutes} минут ${seconds} секунд`;
+    }
+
+    updateLoveTimer();
+    setInterval(updateLoveTimer, 1000);
+
+    const heartBtn = document.getElementById("heartBtn");
+
+    heartBtn.addEventListener("click", () => {
+      const rect = heartBtn.getBoundingClientRect();
+      const startX = rect.left + rect.width / 2;
+      const startY = rect.top + rect.height / 2;
+
+      for (let i = 0; i < 20; i++) {
+        const heart = document.createElement("div");
+        heart.className = "floating-heart";
+        heart.textContent = "❤";
+
+        heart.style.left = startX + "px";
+        heart.style.top = startY + "px";
+        heart.style.fontSize = (12 + Math.random() * 18) + "px";
+
+        const moveX = (Math.random() - 0.5) * 240 + "px";
+        const moveY = (-60 - Math.random() * 220) + "px";
+
+        heart.style.setProperty("--moveX", moveX);
+        heart.style.setProperty("--moveY", moveY);
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 1600);
+      }
+    });
+
+    const musicToggleBtn = document.getElementById("musicToggleBtn");
+    const musicBtnText = document.getElementById("musicBtnText");
+    const musicTip = document.getElementById("musicTip");
+    const bgMusic = document.getElementById("bgMusic");
+
+    let loveMusicStarted = false;
+
+    musicToggleBtn.addEventListener("click", function () {
+      if (!loveMusicStarted) {
+        bgMusic.play();
+        loveMusicStarted = true;
+        musicToggleBtn.classList.add("playing");
+        musicBtnText.textContent = "Әнімізді тоқтату";
+        if (musicTip) musicTip.style.display = "none";
+      } else {
+        bgMusic.pause();
+        bgMusic.currentTime = 0;
+        loveMusicStarted = false;
+        musicToggleBtn.classList.remove("playing");
+        musicBtnText.textContent = "Әнімізді қосу";
+      }
+    });
+  </script>
+</body>
+</html>
